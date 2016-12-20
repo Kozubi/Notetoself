@@ -29,7 +29,7 @@ public class DialogNewNote extends DialogFragment {
         final CheckBox checkBoxTodo = (CheckBox) dialogView.findViewById(R.id.CheckBoxTodo);
         final CheckBox checkBoxImportant = (CheckBox) dialogView.findViewById(R.id.checkBoxImportant);
         Button btnCancel = (Button) dialogView.findViewById(R.id.btnCancel);
-        Button ntnOK = (Button) dialogView.findViewById(R.id.btnOK);
+        Button btnOK = (Button) dialogView.findViewById(R.id.btnOK);
 
         builder.setView(dialogView).setMessage("Add a new note");
 
@@ -37,8 +37,32 @@ public class DialogNewNote extends DialogFragment {
             @Override
             public void onClick(View v) {
                 dismiss();
+
             }
         });
+
+        btnOK.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+             // Create a new note
+                Note newNote = new Note();
+
+                newNote.setTitle(editTitle.getText().toString());
+                newNote.setDescription(editDescription.getText().toString());
+                newNote.setIdea(checkBoxIdea.isChecked());
+                newNote.setTodo(checkBoxTodo.isChecked());
+                newNote.setImportant(checkBoxImportant.isChecked());
+
+                MainActivity callingActivity = (MainActivity) getActivity();
+
+                callingActivity.createNewNote(newNote);
+
+                dismiss();
+
+            }
+        })
     }
 
 }
